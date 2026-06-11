@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¿El gasto garantiza el éxito? · Premier League 22/23–25/26</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#141220; --ink-2:#1C1930; --ink-3:#272240;
+    --chalk:#F2EEE3; --chalk-dim:#A39DB6; --chalk-faint:#6F6987;
+    --violet:#9B8CFF; --mint:#46E0A0; --coral:#FF5E54; --amber:#FFC65A;
+    --line:rgba(242,238,227,0.09); --line-strong:rgba(242,238,227,0.16);
+    --disp:"Bricolage Grotesque",system-ui,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,monospace;
+    --body:"Inter",system-ui,sans-serif;
+    --maxw:1080px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{
+    margin:0; background:var(--ink); color:var(--chalk);
+    font-family:var(--body); font-size:17px; line-height:1.6;
+    -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  }
+  body::before{
+    content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+    background:
+      radial-gradient(900px 500px at 80% -5%, rgba(155,140,255,.14), transparent 60%),
+      radial-gradient(700px 500px at 0% 100%, rgba(70,224,160,.07), transparent 55%);
+  }
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px; position:relative; z-index:1}
+  a{color:var(--violet)}
+
+  /* ---------- pitch line decoration ---------- */
+  .pitch-line{height:1px;background:var(--line);border:none;margin:0}
+
+  /* ---------- eyebrow / scoreboard tag ---------- */
+  .tag{
+    font-family:var(--mono); font-size:12px; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--chalk-faint); display:inline-flex; align-items:center; gap:.6em;
+  }
+  .tag b{color:var(--violet); font-weight:700}
+  .tag .dot{width:6px;height:6px;border-radius:50%;background:var(--violet);box-shadow:0 0 10px var(--violet)}
+
+  /* ---------- HERO ---------- */
+  .hero{min-height:100svh; display:flex; flex-direction:column; justify-content:center; padding:90px 0 60px; position:relative}
+  .hero .kicker{margin-bottom:30px}
+  .hero h1{
+    font-family:var(--disp); font-weight:800; font-size:clamp(44px,9vw,108px);
+    line-height:.96; letter-spacing:-.02em; margin:0 0 8px;
+  }
+  .hero h1 .q{color:var(--chalk)}
+  .hero h1 .a{
+    display:inline-block; color:var(--ink); background:var(--coral);
+    padding:0 .18em; transform:rotate(-1.5deg); margin-top:.12em;
+    box-shadow:0 8px 30px rgba(255,94,84,.35);
+  }
+  .hero .sub{max-width:560px; color:var(--chalk-dim); font-size:clamp(16px,2.2vw,20px); margin:26px 0 0}
+  .hero .scoreboard{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line-strong);
+    border:1px solid var(--line-strong); border-radius:14px; overflow:hidden; margin-top:44px; max-width:680px;
+  }
+  .sb-cell{background:var(--ink-2); padding:20px 18px}
+  .sb-cell .n{font-family:var(--disp); font-weight:700; font-size:clamp(26px,4.6vw,40px); line-height:1; letter-spacing:-.02em}
+  .sb-cell .l{font-family:var(--mono); font-size:11px; letter-spacing:.08em; color:var(--chalk-faint); text-transform:uppercase; margin-top:10px}
+  .n.coral{color:var(--coral)} .n.mint{color:var(--mint)} .n.violet{color:var(--violet)}
+  .scroll-hint{position:absolute; bottom:26px; left:24px; font-family:var(--mono); font-size:11px; letter-spacing:.14em; color:var(--chalk-faint); text-transform:uppercase; display:flex; align-items:center; gap:10px}
+  .scroll-hint .bar{width:34px;height:1px;background:var(--chalk-faint); position:relative; overflow:hidden}
+  .scroll-hint .bar::after{content:"";position:absolute;inset:0;width:40%;background:var(--violet);animation:slide 2.2s infinite}
+  @keyframes slide{from{transform:translateX(-120%)}to{transform:translateX(320%)}}
+
+  /* ---------- sections ---------- */
+  section.act{padding:88px 0; border-top:1px solid var(--line)}
+  .act-head{display:flex; flex-direction:column; gap:18px; margin-bottom:40px; max-width:780px}
+  .act-head h2{
+    font-family:var(--disp); font-weight:700; font-size:clamp(28px,5vw,52px);
+    line-height:1.02; letter-spacing:-.02em; margin:0;
+  }
+  .act-head p.lead{margin:0; color:var(--chalk-dim); font-size:clamp(16px,2vw,19px); max-width:680px}
+
+  /* verdict pill */
+  .verdict{
+    display:inline-flex; align-items:center; gap:10px; font-family:var(--mono);
+    font-size:12px; letter-spacing:.06em; text-transform:uppercase; padding:8px 14px;
+    border-radius:100px; border:1px solid var(--line-strong); color:var(--chalk-dim); width:fit-content;
+  }
+  .verdict .pip{width:8px;height:8px;border-radius:50%}
+  .verdict.bad .pip{background:var(--coral)} .verdict.good .pip{background:var(--mint)} .verdict.mid .pip{background:var(--amber)}
+
+  /* chart card */
+  .card{
+    background:var(--ink-2); border:1px solid var(--line); border-radius:16px;
+    padding:26px 24px 22px; position:relative;
+  }
+  .card .cap{font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--chalk-faint); margin-bottom:4px}
+  .card h3.ctitle{font-family:var(--disp); font-weight:600; font-size:20px; margin:0 0 18px; letter-spacing:-.01em}
+  .chart-svg{width:100%; height:auto; display:block; overflow:visible}
+  .read{font-family:var(--mono); font-size:12px; color:var(--chalk-faint); margin-top:14px; line-height:1.5}
+
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:start}
+  .grid-side{display:grid; grid-template-columns:1.4fr 1fr; gap:30px; align-items:center}
+
+  /* takeaway list */
+  .takeaways{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:16px}
+  .takeaways li{display:flex; gap:14px; align-items:flex-start; font-size:16px; line-height:1.5}
+  .takeaways li .mk{font-family:var(--mono); color:var(--violet); font-size:13px; padding-top:2px; flex:none}
+  .takeaways li b{color:var(--chalk)}
+
+  /* big inline stat */
+  .bigstat{font-family:var(--disp); font-weight:800; font-size:clamp(40px,8vw,84px); line-height:.95; letter-spacing:-.03em}
+  .bigstat.coral{color:var(--coral)} .bigstat.mint{color:var(--mint)} .bigstat.violet{color:var(--violet)} .bigstat.amber{color:var(--amber)}
+
+  /* derivative formula */
+  .formula{font-family:var(--mono); background:var(--ink-3); border:1px solid var(--line); border-radius:10px; padding:14px 16px; font-size:14px; color:var(--mint); margin:6px 0}
+  .formula .neg{color:var(--coral)}
+
+  /* legend chips */
+  .legend{display:flex; flex-wrap:wrap; gap:14px; font-family:var(--mono); font-size:11.5px; color:var(--chalk-dim); margin-top:6px}
+  .legend span{display:inline-flex; align-items:center; gap:7px}
+  .legend i{width:11px;height:11px;border-radius:3px;display:inline-block}
+
+  /* tooltip */
+  .tt{position:fixed; pointer-events:none; z-index:50; background:var(--ink-3); border:1px solid var(--line-strong);
+      border-radius:9px; padding:9px 12px; font-family:var(--mono); font-size:12px; color:var(--chalk);
+      opacity:0; transform:translateY(4px); transition:opacity .12s; box-shadow:0 12px 40px rgba(0,0,0,.5); max-width:220px}
+
+  /* findings cards */
+  .finds{display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:16px; overflow:hidden}
+  .find{background:var(--ink-2); padding:26px 24px}
+  .find h4{font-family:var(--disp); font-weight:600; font-size:19px; margin:12px 0 8px; letter-spacing:-.01em}
+  .find p{margin:0; color:var(--chalk-dim); font-size:15px; line-height:1.55}
+  .find strong{color:var(--chalk)}
+
+  /* talking points */
+  .speak{background:linear-gradient(180deg,var(--ink-2),var(--ink-2)); border:1px solid var(--line-strong); border-radius:18px; padding:34px 30px}
+  .speak .speak-tag{color:var(--mint)}
+  .qline{border-left:2px solid var(--violet); padding:6px 0 6px 18px; margin:22px 0; font-size:18px; line-height:1.5}
+  .qline .who{display:block; font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--chalk-faint); margin-top:8px}
+
+  /* footer */
+  footer{padding:70px 0 60px; border-top:1px solid var(--line)}
+  .authors{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:14px; overflow:hidden; margin:24px 0}
+  .author{background:var(--ink-2); padding:16px 18px}
+  .author .a-n{font-family:var(--disp); font-weight:600; font-size:16px}
+  .author .a-g{font-family:var(--mono); font-size:11px; color:var(--chalk-faint); margin-top:4px}
+  .foot-note{font-size:13px; color:var(--chalk-faint); max-width:640px; line-height:1.6; margin-top:18px}
+  .repo-btn{display:inline-flex; gap:9px; align-items:center; font-family:var(--mono); font-size:13px; text-decoration:none;
+    color:var(--chalk); border:1px solid var(--line-strong); padding:11px 16px; border-radius:10px; margin-top:6px}
+  .repo-btn:hover{border-color:var(--violet); color:var(--violet)}
+
+  /* reveal */
+  .reveal{opacity:0; transform:translateY(22px); transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1; transform:none}
+  @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+  @media (max-width:760px){
+    body{font-size:16px}
+    .grid2,.grid-side,.finds{grid-template-columns:1fr}
+    .hero .scoreboard{grid-template-columns:1fr 1fr}
+    .scroll-hint{display:none}
+  }
+  :focus-visible{outline:2px solid var(--violet); outline-offset:3px; border-radius:4px}
+</style>
+</head>
+<body>
+<div class="tt" id="tt"></div>
+
+<!-- ===================== HERO ===================== -->
+<header class="hero wrap">
+  <div class="kicker tag"><span class="dot"></span> Laboratorio de Métodos Cuantitativos · <b>UBA · FCE</b> · Premier League 22/23 → 25/26</div>
+  <h1><span class="q">¿El gasto garantiza</span><br><span class="q">el éxito?</span> <span class="a">No.</span></h1>
+  <p class="sub">Un panel balanceado de 17 clubes a lo largo de 4 temporadas (68 observaciones) para responder una sola pregunta económica: ¿comprar jugadores compra puntos? La respuesta corta está arriba. La interesante es <em>por qué</em>.</p>
+
+  <div class="scoreboard reveal">
+    <div class="sb-cell"><div class="n coral">−0,02</div><div class="l">Correlación gasto–puntos · 1 temporada</div></div>
+    <div class="sb-cell"><div class="n violet">0,21</div><div class="l">R² del gasto sobre los puntos · 4 temporadas</div></div>
+    <div class="sb-cell"><div class="n mint">5,3×</div><div class="l">Brecha de eficiencia: Brentford vs Chelsea</div></div>
+  </div>
+
+  <div class="scroll-hint"><span class="bar"></span> Desplazá para recorrer el análisis</div>
+</header>
+
+<!-- ===================== ACT I: corto plazo ===================== -->
+<section class="act wrap" id="act1">
+  <div class="act-head reveal">
+    <span class="tag"><b>01</b> · El corto plazo engaña</span>
+    <h2>Una temporada no dice nada</h2>
+    <p class="lead">Arrancamos como la intuición lo pide: gasto neto en fichajes contra puntos, temporada 2022/23, 20 clubes. Si el dinero comprara puntos, la nube debería trepar de izquierda a derecha. No lo hace: la recta de tendencia es prácticamente plana.</p>
+    <span class="verdict bad"><span class="pip"></span> r = −0,02 · relación lineal inexistente</span>
+  </div>
+
+  <div class="card reveal">
+    <div class="cap">Gráfico de dispersión · Premier League 2022/23</div>
+    <h3 class="ctitle">Gasto neto en transferencias vs. puntos obtenidos</h3>
+    <svg id="scatter1" class="chart-svg" viewBox="0 0 720 440" role="img" aria-label="Dispersión gasto neto contra puntos 22/23"></svg>
+    <div class="legend">
+      <span><i style="background:var(--coral)"></i> Outlier de derroche</span>
+      <span><i style="background:var(--mint)"></i> Eficiencia destacada</span>
+      <span><i style="background:var(--violet)"></i> Resto de la liga</span>
+      <span><i style="background:transparent;border:1px dashed var(--coral)"></i> Tendencia (plana)</span>
+    </div>
+    <p class="read">CÓMO LEERLO — Pasá el cursor por cada club. La línea roja punteada es la regresión lineal: su pendiente es casi cero.</p>
+  </div>
+
+  <div class="grid-side" style="margin-top:34px">
+    <ul class="takeaways reveal">
+      <li><span class="mk">→</span><span><b>Manchester City</b> salió campeón (89 pts) con gasto neto <b>negativo</b>: vendió más de lo que compró. La calidad acumulada pesó más que el último mercado.</span></li>
+      <li><span class="mk">→</span><span><b>Brighton</b> hizo 62 puntos con el gasto neto <b>más bajo</b> de la tabla. Modelo de desarrollar y vender: la eficiencia en estado puro.</span></li>
+      <li><span class="mk">→</span><span><b>Chelsea</b> aparece solo, a la derecha del todo: ~540 M€ de gasto neto y apenas 44 puntos. El outlier más elocuente del trabajo.</span></li>
+    </ul>
+    <div class="reveal" style="text-align:center">
+      <div class="bigstat coral">540 M€</div>
+      <div class="tag" style="justify-content:center;margin-top:8px">Gasto neto de Chelsea · 44 puntos</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ACT II: inflación ===================== -->
+<section class="act wrap" id="act2">
+  <div class="act-head reveal">
+    <span class="tag"><b>02</b> · Inflación sin resultados</span>
+    <h2>La masa salarial sube; los puntos, no</h2>
+    <p class="lead">Ampliamos a cuatro temporadas y sumamos los salarios. La masa salarial de los 17 clubes estables creció <b>+43%</b> (de ~2.200 a ~3.150 M US$). Los puntos promedio por club, en cambio, se quedaron clavados. Como la liga reparte siempre la misma cantidad de puntos, el gasto extra es un juego de suma cero.</p>
+    <span class="verdict mid"><span class="pip"></span> El precio del punto sube, el resultado no</span>
+  </div>
+
+  <div class="card reveal">
+    <div class="cap">Serie temporal · doble eje · 17 clubes estables</div>
+    <h3 class="ctitle">Salarios totales vs. puntos promedio por club</h3>
+    <svg id="dualaxis" class="chart-svg" viewBox="0 0 720 380" role="img" aria-label="Salarios crecientes contra puntos planos"></svg>
+    <div class="legend">
+      <span><i style="background:var(--coral)"></i> Masa salarial total (M US$)</span>
+    </div>
+    <p class="read">La línea roja trepa +43% en cuatro años; </p>
+  </div>
+</section>
+
+<!-- ===================== ACT III: costo por punto ===================== -->
+<section class="act wrap" id="act3">
+  <div class="act-head reveal">
+    <span class="tag"><b>03</b> · El precio del punto</span>
+    <h2>Cuánto cuesta cada punto</h2>
+    <p class="lead">Costo por punto = gasto total (salarios + fichajes) dividido por los puntos obtenidos, promediado en las cuatro temporadas. Acá la diferencia entre clubes se vuelve brutal: del más eficiente al más derrochador hay más de cinco veces de distancia.</p>
+    <span class="verdict good"><span class="pip"></span> La eficiencia, no el volumen, distingue a los equipos</span>
+  </div>
+
+  <div class="card reveal">
+    <div class="cap">Barras horizontales · ordenado de eficiente a derrochador</div>
+    <h3 class="ctitle">Costo por punto · millones de US$ · promedio 4 temporadas</h3>
+    <svg id="bars" class="chart-svg" viewBox="0 0 720 560" role="img" aria-label="Costo por punto por club"></svg>
+    <p class="read">VERDE = convierte poco dinero en muchos puntos · ROJO = paga carísimo cada punto. Chelsea (11,2) y Manchester United (8,2) quedan separados del resto.</p>
+  </div>
+</section>
+
+<!-- ===================== ACT IV: mapa eficiencia ===================== -->
+<section class="act wrap" id="act4">
+  <div class="act-head reveal">
+    <span class="tag"><b>04</b> · El mapa de la eficiencia</span>
+    <h2>Cuatro maneras de gastar</h2>
+    <p class="lead">Cada club según su gasto promedio (horizontal) y sus puntos promedio (vertical). Las líneas punteadas marcan las medianas y parten el plano en cuatro zonas. El cuadrante donde caés dice más sobre tu gestión que tu presupuesto.</p>
+  </div>
+
+  <div class="card reveal">
+    <div class="cap">Diagrama de cuadrantes · promedio 4 temporadas · 17 clubes</div>
+    <h3 class="ctitle">Gasto promedio vs. puntos promedio</h3>
+    <svg id="quad" class="chart-svg" viewBox="0 0 720 500" role="img" aria-label="Mapa de cuadrantes de eficiencia"></svg>
+    <div class="legend">
+      <span><i style="background:var(--mint)"></i> Joyas · poco gasto, buen rendimiento</span>
+      <span><i style="background:var(--violet)"></i> Potencias · pagan y ganan</span>
+      <span><i style="background:var(--coral)"></i> Gastaron de más</span>
+      <span><i style="background:var(--chalk-faint)"></i> Modestos</span>
+    </div>
+    <p class="read">Pasá el cursor por cada punto. Brighton, Bournemouth y Brentford mandan en el cuadrante de las joyas; Chelsea y Manchester United quedan abajo a la derecha: mucho gasto, rendimiento medio.</p>
+  </div>
+</section>
+
+<!-- ===================== ACT V: salarios vs fichajes ===================== -->
+<section class="act wrap" id="act5">
+  <div class="act-head reveal">
+    <span class="tag"><b>05</b> · ¿Salarios o fichajes?</span>
+    <h2>Quién está en nómina importa más que el último mercado</h2>
+    <p class="lead">Testeamos el efecto Szymanski: la masa salarial predice el rendimiento mejor que los fichajes. En nuestro panel se cumple. El salario refleja la calidad <em>sostenida</em> del plantel; el gasto en fichajes es errático, más parecido a una lotería.</p>
+    <span class="verdict good"><span class="pip"></span> Salarios r = 0,50 · Fichajes r = 0,33</span>
+  </div>
+
+  <div class="grid2">
+    <div class="card reveal">
+      <div class="cap">Salarios · mejor predictor</div>
+      <h3 class="ctitle">r = 0,50 · R² = 0,25</h3>
+      <svg id="predSal" class="chart-svg" viewBox="0 0 340 280" role="img" aria-label="Salarios contra puntos"></svg>
+      <p class="read">Explica el 25% de la variación de puntos.</p>
+    </div>
+    <div class="card reveal">
+      <div class="cap">Fichajes · más tipo lotería</div>
+      <h3 class="ctitle">r = 0,33 · R² = 0,11</h3>
+      <svg id="predFic" class="chart-svg" viewBox="0 0 340 280" role="img" aria-label="Fichajes contra puntos"></svg>
+      <p class="read">Explica apenas el 11%: nube más dispersa.</p>
+    </div>
+  </div>
+
+  <div class="card reveal" style="margin-top:24px">
+    <div class="cap">Decisión de gestión · programación lineal (PuLP)</div>
+    <h3 class="ctitle">Si te dan 300 M US$ para repartir…</h3>
+    <p style="margin:0 0 6px;color:var(--chalk-dim)">Maximizando los puntos esperados (cada M$ en salarios aporta ~0,084 pts; en fichajes ~0,013), el reparto óptimo carga casi todo en nómina:</p>
+    <div style="display:flex;gap:24px;flex-wrap:wrap;align-items:baseline;margin-top:8px">
+      <div><span class="bigstat mint" style="font-size:clamp(34px,6vw,56px)">85%</span><div class="tag" style="margin-top:6px">Salarios · 255 M US$</div></div>
+      <div><span class="bigstat amber" style="font-size:clamp(34px,6vw,56px)">15%</span><div class="tag" style="margin-top:6px">Fichajes · 45 M US$</div></div>
+      <div><span class="bigstat violet" style="font-size:clamp(34px,6vw,56px)">63,8</span><div class="tag" style="margin-top:6px">Puntos esperados</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ACT VI: optimo ===================== -->
+<section class="act wrap" id="act6">
+  <div class="act-head reveal">
+    <span class="tag"><b>06</b> · ¿Hasta dónde conviene gastar?</span>
+    <h2>El dinero rinde hasta un techo</h2>
+    <p class="lead">En vez de una recta, ajustamos una parábola sobre las 68 observaciones. La curva sube con pendiente decreciente —cada millón suma menos que el anterior— hasta un máximo, y después baja. Con cálculo diferencial encontramos exactamente dónde está ese techo.</p>
+    <span class="verdict mid"><span class="pip"></span> Gasto óptimo ≈ 560 M US$ → ~70 puntos</span>
+  </div>
+
+  <div class="grid-side">
+    <div class="card reveal">
+      <div class="cap">Ajuste cuadrático · 68 observaciones club × temporada</div>
+      <h3 class="ctitle">Gasto total vs. puntos, con punto óptimo</h3>
+      <svg id="parab" class="chart-svg" viewBox="0 0 720 430" role="img" aria-label="Parábola gasto puntos con óptimo"></svg>
+      <p class="read">El único club que supera ese umbral de forma sostenida es Chelsea (~640 M): la marca de la sobreinversión.</p>
+    </div>
+    <div class="reveal">
+      <p style="color:var(--chalk-dim);margin-top:0">La función ajustada y sus derivadas (con <span style="font-family:var(--mono)">numpy</span> + <span style="font-family:var(--mono)">sympy</span>):</p>
+      <div class="formula">P(g) = 31,10 + 0,1385·g − 0,000124·g²</div>
+      <div class="formula">P′(g) = 0,1385 − 0,000247·g  ⟶ = 0 en <b style="color:var(--mint)">g* ≈ 560</b></div>
+      <div class="formula">P″(g) = <span class="neg">−0,000247 &lt; 0</span> ⟶ cóncava: es un <b style="color:var(--coral)">máximo</b></div>
+      <p style="color:var(--chalk-dim);font-size:15px">La 1ª derivada es el "producto marginal del dinero": cuántos puntos suma el próximo millón. Empieza alta y cae. Pasado el óptimo, gastar más se asocia con <em>menos</em> puntos.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ACT VII: ascendidos ===================== -->
+<section class="act wrap" id="act7">
+  <div class="act-head reveal">
+    <span class="tag"><b>07</b> · La trampa de los ascendidos</span>
+    <h2>La brecha que condena a los recién llegados</h2>
+    <p class="lead">El dato más llamativo del período: en 2023/24 y 2024/25, los seis equipos ascendidos descendieron al primer intento, dejando intacto el núcleo de 17. ¿Por qué? La brecha financiera con los clubes estables es casi del doble. Y gastar en pánico tampoco los salva.</p>
+    <span class="verdict bad"><span class="pip"></span> 6 ascendidos, 6 descensos inmediatos</span>
+  </div>
+
+  <div class="grid-side">
+    <div class="card reveal">
+      <div class="cap">Barras · gasto total promedio</div>
+      <h3 class="ctitle">17 estables vs. clubes que descendieron</h3>
+      <svg id="releg" class="chart-svg" viewBox="0 0 560 320" role="img" aria-label="Brecha de gasto estables vs descendidos"></svg>
+      <p class="read">Los estables gastan ~1,9× más y suman 23 puntos más en promedio.</p>
+    </div>
+    <ul class="takeaways reveal">
+      <li><span class="mk">→</span><span><b>Leeds (243 M$)</b> y <b>Southampton (233 M$)</b> hicieron desembolsos enormes para sobrevivir en 22/23 y <b>descendieron igual</b>.</span></li>
+      <li><span class="mk">→</span><span>Llegan con un plantel y estructuras muy por debajo del piso de la Premier. Un mercado de pánico rara vez cierra esa distancia en una sola ventana.</span></li>
+      <li><span class="mk">→</span><span>La trampa no es solo financiera: es <b>estructural</b>.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== HALLAZGOS ===================== -->
+<section class="act wrap" id="hallazgos">
+  <div class="act-head reveal">
+    <span class="tag"><b>08</b> · La conclusión</span>
+    <h2>El dinero es necesario, pero no suficiente</h2>
+    <p class="lead">El conjunto del análisis permite sostener, con respaldo empírico, una idea simple: gastar más no garantiza ganar más. La ausencia de correlación fuerte no es un fracaso del trabajo — es el resultado.</p>
+  </div>
+
+  <div class="finds reveal">
+    <div class="find"><div class="num">01</div><h4>El dinero ayuda, no compra puntos</h4><p>En el panel de 68 casos, el gasto explica solo <strong>~1/5</strong> del rendimiento (R² ≈ 0,21) y la elasticidad es <strong>inelástica (0,24)</strong>: subir el gasto 10% se asocia con apenas 2,4% más de puntos.</p></div>
+    <div class="find"><div class="num">02</div><h4>Salarios &gt; fichajes</h4><p>La calidad <strong>sostenida</strong> del plantel (r ≈ 0,50) predice mejor que el último mercado (r ≈ 0,33). Es el efecto Szymanski confirmado en nuestros datos.</p></div>
+    <div class="find"><div class="num">03</div><h4>Inflación sin resultados</h4><p>La masa salarial creció <strong>+43%</strong> en cuatro temporadas con puntos planos. El "precio del punto" sube; el resultado deportivo, no.</p></div>
+    <div class="find"><div class="num">04</div><h4>La eficiencia manda</h4><p>De <strong>2,1 M$/punto</strong> (Brentford) a <strong>11,2 M$/punto</strong> (Chelsea). Hay un óptimo de gasto ≈ 560 M$; más allá, el retorno marginal se vuelve negativo.</p></div>
+  </div>
+</section>
+
+<!-- ===================== PARA DEFENDER ===================== -->
+<section class="act wrap" id="defender">
+  <div class="speak reveal">
+    <span class="tag speak-tag"><b>★</b> Para defender en la presentación</span>
+    <h2 style="font-family:var(--disp);font-weight:700;font-size:clamp(26px,4.5vw,40px);letter-spacing:-.02em;margin:16px 0 4px">Las tres frases que sostienen todo</h2>
+
+    <div class="qline">"Empezamos con la intuición —más gasto, más puntos— y los datos la rompieron: <b>r = −0,02</b> en una temporada. Ahí decidimos ampliar la muestra."
+      <span class="who">Si preguntan por qué pasaron de 1 a 4 temporadas</span></div>
+
+    <div class="qline">"La ausencia de correlación también es un hallazgo. Confirmar que gastar más no garantiza ganar —y construir el argumento que lo explica— vale tanto como encontrar una relación fuerte."
+      <span class="who">Si cuestionan que el R² sea bajo</span></div>
+
+    <div class="qline">"El 79% que el gasto no explica es gestión, cuerpo técnico, lesiones y suerte. Por eso son <b>asociaciones descriptivas, no causales</b>: no controlamos esas variables."
+      <span class="who">Si preguntan por causalidad / limitaciones</span></div>
+
+    <p style="color:var(--chalk-dim);margin:26px 0 0;font-size:15px"><b style="color:var(--chalk)">Herramientas a nombrar:</b> pandas y numpy (datos y regresiones), matplotlib/seaborn (gráficos), <b style="font-family:var(--mono)">sympy</b> (derivadas y óptimo) y <b style="font-family:var(--mono)">PuLP</b> (programación lineal del presupuesto). Integran estadística descriptiva, regresión, cálculo diferencial y optimización en un mismo caso.</p>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="wrap">
+  <span class="tag"><b>Grupo</b> · Laboratorio de Métodos Cuantitativos Aplicados a la Gestión · FCE UBA · 1.º cuatrimestre 2026</span>
+  <div class="authors reveal">
+    <div class="author"><div class="a-n">Nahuel Mete</div><div class="a-g">@nahuelmete672 · 921298</div></div>
+    <div class="author"><div class="a-n">Franco Fusi</div><div class="a-g">@francofusi · 921304</div></div>
+    <div class="author"><div class="a-n">Nicolás Tucci</div><div class="a-g">@nicotucci · 921273</div></div>
+    <div class="author"><div class="a-n">Tobias Carusso</div><div class="a-g">@totocarusso-ops · 921285</div></div>
+    <div class="author"><div class="a-n">Santiago Cavallero Blal</div><div class="a-g">@cavalleroblalsantiago · 921296</div></div>
+  </div>
+  <a class="repo-btn" href="https://github.com/nicotucci/TP-Laboratorio-AnalisisFutbol" target="_blank" rel="noopener">↗ Repositorio en GitHub · datasets y notebook</a>
+  <p class="foot-note">Fuente principal: Transfermarkt. Panel balanceado de 17 clubes × 4 temporadas (68 observaciones club-temporada). Redactado con asistencia de Claude (Anthropic) en estructuración y redacción; la interpretación económica, la detección de problemas en los datos y la validación de valores fueron responsabilidad del grupo.</p>
+</footer>
+
+<script>
+/* ============ datos reales (del notebook / base del grupo) ============ */
+const DATA = {
+  // 22/23 gasto neto (M€, tabla finanzas del notebook) vs puntos
+  scatter1: [
+    {c:"Chelsea",x:541.4,y:44,k:"bad"},{c:"Man United",x:231.8,y:75,k:"x"},
+    {c:"Newcastle",x:183.0,y:71,k:"x"},{c:"Nottm Forest",x:177.3,y:38,k:"x"},
+    {c:"West Ham",x:172.5,y:40,k:"x"},{c:"Arsenal",x:168.6,y:84,k:"x"},
+    {c:"Tottenham",x:139.2,y:60,k:"x"},{c:"Southampton",x:136.7,y:25,k:"x"},
+    {c:"Wolves",x:114.7,y:41,k:"x"},{c:"Bournemouth",x:83.1,y:39,k:"x"},
+    {c:"Liverpool",x:51.6,y:67,k:"x"},{c:"Fulham",x:49.6,y:52,k:"x"},
+    {c:"Brentford",x:47.9,y:59,k:"x"},{c:"Aston Villa",x:46.1,y:61,k:"x"},
+    {c:"Leeds",x:42.7,y:31,k:"x"},{c:"Crystal Palace",x:41.1,y:45,k:"x"},
+    {c:"Man City",x:-11.7,y:89,k:"good"},{c:"Everton",x:-18.4,y:36,k:"x"},
+    {c:"Leicester",x:-33.4,y:34,k:"x"},{c:"Brighton",x:-80.1,y:62,k:"good"}
+  ],
+  // serie temporal salarios totales (M$) y puntos promedio
+  dual: [
+    {t:"22/23",sal:2202.2,pts:56.6},{t:"23/24",sal:2514.5,pts:57.6},
+    {t:"24/25",sal:2726.0,pts:58.0},{t:"25/26",sal:3151.0,pts:53.7}
+  ],
+  // costo por punto promedio 4 temporadas
+  bars: [
+    {c:"Brentford",v:2.07},{c:"Brighton",v:2.39},{c:"Bournemouth",v:2.57},
+    {c:"Crystal Palace",v:2.82},{c:"Fulham",v:3.22},{c:"Everton",v:3.60},
+    {c:"Aston Villa",v:4.03},{c:"Wolves",v:4.35},{c:"Nottm Forest",v:4.63},
+    {c:"Newcastle",v:4.94},{c:"Man City",v:5.27},{c:"Liverpool",v:5.38},
+    {c:"Arsenal",v:5.61},{c:"Tottenham",v:5.70},{c:"West Ham",v:5.82},
+    {c:"Man United",v:8.24},{c:"Chelsea",v:11.16}
+  ],
+  // mapa cuadrantes: gasto promedio, puntos promedio
+  quad: [
+    {c:"Brentford",g:107.1,p:51.8},{c:"Brighton",g:133.6,p:56.0},
+    {c:"Bournemouth",g:128.7,p:50.0},{c:"Crystal Palace",g:135.3,p:48.0},
+    {c:"Fulham",g:165.0,p:51.2},{c:"Everton",g:155.8,p:43.2},
+    {c:"Aston Villa",g:261.7,p:65.0},{c:"Wolves",g:159.7,p:36.8},
+    {c:"Nottm Forest",g:207.3,p:44.8},{c:"Newcastle",g:303.8,p:61.5},
+    {c:"Man City",g:433.7,p:82.2},{c:"Liverpool",g:394.3,p:73.2},
+    {c:"Arsenal",g:465.5,p:83.0},{c:"Tottenham",g:292.3,p:51.2},
+    {c:"West Ham",g:253.1,p:43.5},{c:"Man United",g:511.0,p:62.0},
+    {c:"Chelsea",g:636.3,p:57.0}
+  ],
+  medG:253.1, medP:51.8,
+  // 68 obs gasto total vs puntos
+  panel: [[334,84],[493,89],[352,74],[682,85],[252,61],[254,68],[279,66],[261,65],[95,59],[113,39],[92,56],[127,53],[110,62],[138,48],[171,61],[115,53],[934,44],[712,63],[425,69],[472,52],[136,45],[120,49],[163,53],[121,45],[199,36],[144,40],[159,48],[120,49],[360,67],[404,82],[267,84],[544,60],[418,89],[539,91],[330,71],[446,78],[557,75],[526,60],[478,42],[481,71],[313,71],[353,60],[165,66],[383,49],[338,60],[374,66],[231,38],[224,41],[321,40],[267,52],[272,43],[151,39],[263,41],[125,46],[162,40],[88,20],[108,39],[149,48],[135,56],[121,57],[192,52],[170,47],[186,54],[112,52],[258,38],[196,32],[156,65],[217,44]],
+  // salarios vs fichajes (M$) vs puntos — promedio club
+  predSal: [[56.7,51.8],[89.7,56.0],[78.2,50.0],[97.0,48.0],[98.0,51.2],[115.2,43.2],[155.7,65.0],[78.6,36.8],[118.2,44.8],[162.6,61.5],[273.1,82.2],[242.7,73.2],[211.2,83.0],[164.7,51.2],[116.2,43.5],[295.1,62.0],[295.4,57.0]],
+  predFic: [[50.4,51.8],[43.9,56.0],[50.4,50.0],[38.3,48.0],[67.0,51.2],[40.6,43.2],[106.0,65.0],[81.1,36.8],[89.0,44.8],[141.3,61.5],[160.6,82.2],[151.6,73.2],[254.3,83.0],[127.6,51.2],[136.9,43.5],[215.9,62.0],[340.9,57.0]],
+  releg: [{l:"17 estables",v:279,p:56,col:"var(--violet)"},{l:"Descendidos",v:148,p:33,col:"var(--coral)"}]
+};
+
+const NS="http://www.w3.org/2000/svg";
+const tt=document.getElementById('tt');
+function el(t,a){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);return e;}
+function showTT(html,ev){tt.innerHTML=html;tt.style.opacity=1;const px=ev.clientX,py=ev.clientY;tt.style.left=Math.min(px+14,window.innerWidth-tt.offsetWidth-12)+'px';tt.style.top=(py-tt.offsetHeight-10)+'px';}
+function hideTT(){tt.style.opacity=0;}
+function txt(p,x,y,s,o={}){const t=el('text',{x,y,fill:o.fill||'var(--chalk-dim)','font-family':o.f||'var(--mono)','font-size':o.size||11,'text-anchor':o.anchor||'start','font-weight':o.w||400});t.textContent=s;p.appendChild(t);return t;}
+
+/* -------- ACT I scatter -------- */
+function drawScatter1(){
+  const s=document.getElementById('scatter1');const W=720,H=440,m={l:48,r:18,t:18,b:46};
+  const d=DATA.scatter1, xs=d.map(p=>p.x), ys=d.map(p=>p.y);
+  const xmin=-110,xmax=580,ymin=20,ymax=95;
+  const X=v=>m.l+(v-xmin)/(xmax-xmin)*(W-m.l-m.r);
+  const Y=v=>H-m.b-(v-ymin)/(ymax-ymin)*(H-m.t-m.b);
+  // grid
+  for(let v=20;v<=90;v+=10){const y=Y(v);s.appendChild(el('line',{x1:m.l,x2:W-m.r,y1:y,y2:y,stroke:'var(--line)'}));txt(s,m.l-8,y+4,v,{anchor:'end'});}
+  for(let v=-100;v<=500;v+=100){const x=X(v);txt(s,x,H-m.b+20,v,{anchor:'middle'});}
+  // zero line
+  s.appendChild(el('line',{x1:X(0),x2:X(0),y1:m.t,y2:H-m.b,stroke:'var(--line-strong)','stroke-dasharray':'2 4'}));
+  // regression
+  const n=d.length,sx=xs.reduce((a,b)=>a+b,0),sy=ys.reduce((a,b)=>a+b,0);
+  const sxy=d.reduce((a,p)=>a+p.x*p.y,0),sxx=d.reduce((a,p)=>a+p.x*p.x,0);
+  const b1=(n*sxy-sx*sy)/(n*sxx-sx*sx),b0=(sy-b1*sx)/n;
+  s.appendChild(el('line',{x1:X(xmin),y1:Y(b0+b1*xmin),x2:X(xmax),y2:Y(b0+b1*xmax),stroke:'var(--coral)','stroke-width':2,'stroke-dasharray':'6 5',opacity:.85}));
+  // points
+  d.forEach(p=>{
+    const col=p.k==='bad'?'var(--coral)':p.k==='good'?'var(--mint)':'var(--violet)';
+    const c=el('circle',{cx:X(p.x),cy:Y(p.y),r:p.k==='x'?6:8,fill:col,stroke:'var(--ink)','stroke-width':1.5,opacity:.92,cursor:'pointer'});
+    c.addEventListener('mousemove',e=>showTT(`<b>${p.c}</b><br><span class="v">gasto neto</span> ${p.x} M€<br><span class="v">puntos</span> ${p.y}`,e));
+    c.addEventListener('mouseleave',hideTT);s.appendChild(c);
+  });
+  ['Chelsea','Man City','Brighton'].forEach(name=>{const p=d.find(q=>q.c===name);if(p)txt(s,X(p.x)+(name==='Brighton'?12:10),Y(p.y)+(name==='Man City'?-10:4),name,{fill:'var(--chalk)',size:11,w:500,anchor:name==='Chelsea'?'end':'start'});});
+  txt(s,W/2,H-6,'Gasto neto en transferencias · millones €',{anchor:'middle',fill:'var(--chalk-faint)'});
+  const yl=txt(s,14,H/2,'Puntos',{anchor:'middle',fill:'var(--chalk-faint)'});yl.setAttribute('transform',`rotate(-90 14 ${H/2})`);
+}
+
+/* -------- ACT II dual axis -------- */
+function drawDual(){
+  const s=document.getElementById('dualaxis');const W=720,H=380,m={l:60,r:60,t:24,b:40};
+  const d=DATA.dual,n=d.length;
+  const X=i=>m.l+i/(n-1)*(W-m.l-m.r);
+  const salY=v=>H-m.b-(v-2000)/(3300-2000)*(H-m.t-m.b);
+  const ptY=v=>H-m.b-(v-50)/(62-50)*(H-m.t-m.b);
+  for(let v=2000;v<=3200;v+=400){const y=salY(v);s.appendChild(el('line',{x1:m.l,x2:W-m.r,y1:y,y2:y,stroke:'var(--line)'}));txt(s,m.l-8,y+4,v,{anchor:'end',fill:'var(--coral)'});}
+  d.forEach((p,i)=>txt(s,X(i),H-m.b+22,p.t,{anchor:'middle'}));
+  // salary line
+  let path='';d.forEach((p,i)=>path+=(i?'L':'M')+X(i)+' '+salY(p.sal));
+  // area
+  const ar=path+`L${X(n-1)} ${H-m.b} L${X(0)} ${H-m.b} Z`;
+  const grad=el('linearGradient',{id:'g2',x1:0,y1:0,x2:0,y2:1});grad.appendChild(el('stop',{offset:'0%','stop-color':'var(--coral)','stop-opacity':.18}));grad.appendChild(el('stop',{offset:'100%','stop-color':'var(--coral)','stop-opacity':0}));s.appendChild(grad);
+  s.appendChild(el('path',{d:ar,fill:'url(#g2)'}));
+  s.appendChild(el('path',{d:path,fill:'none',stroke:'var(--coral)','stroke-width':3}));
+  let pp='';d.forEach((p,i)=>pp+=(i?'L':'M')+X(i)+' '+ptY(p.pts));
+  d.forEach((p,i)=>{
+    const c1=el('circle',{cx:X(i),cy:salY(p.sal),r:5,fill:'var(--coral)',stroke:'var(--ink)','stroke-width':2,cursor:'pointer'});
+    c1.addEventListener('mousemove',e=>showTT(`<b>${p.t}</b><br><span class="v">salarios</span> ${p.sal} M$`,e));c1.addEventListener('mouseleave',hideTT);s.appendChild(c1);
+    
+  });
+  txt(s,X(0),salY(2202.2)-12,'+43%',{fill:'var(--coral)',size:13,w:700});
+  txt(s,X(n-1),salY(3151)-12,'3.151 M$',{fill:'var(--coral)',size:11,anchor:'end'});
+}
+
+/* -------- ACT III bars -------- */
+function drawBars(){
+  const s=document.getElementById('bars');const W=720,H=560,m={l:118,r:60,t:10,b:30};
+  const d=DATA.bars,max=12,bh=(H-m.t-m.b)/d.length;
+  const X=v=>m.l+v/max*(W-m.l-m.r);
+  function mix(t){ // green->amber->red
+    const g=[70,224,160],a=[255,198,90],r=[255,94,84];
+    let c;if(t<.5){const u=t/.5;c=g.map((x,i)=>x+(a[i]-x)*u);}else{const u=(t-.5)/.5;c=a.map((x,i)=>x+(r[i]-x)*u);}
+    return`rgb(${c.map(Math.round).join(',')})`;
+  }
+  d.forEach((p,i)=>{
+    const y=m.t+i*bh+4,h=bh-8,t=(p.v-2)/(11.2-2);
+    const rect=el('rect',{x:m.l,y,width:X(p.v)-m.l,height:h,rx:4,fill:mix(t),cursor:'pointer'});
+    rect.addEventListener('mousemove',e=>showTT(`<b>${p.c}</b><br><span class="v">costo/punto</span> ${p.v.toFixed(1)} M$`,e));rect.addEventListener('mouseleave',hideTT);
+    s.appendChild(rect);
+    txt(s,m.l-10,y+h/2+4,p.c,{anchor:'end',fill:'var(--chalk-dim)',size:12});
+    txt(s,X(p.v)+8,y+h/2+4,p.v.toFixed(1),{fill:'var(--chalk)',size:12,w:700});
+  });
+  txt(s,m.l,H-8,'millones de US$ por punto →',{fill:'var(--chalk-faint)'});
+}
+
+/* -------- ACT IV quadrants -------- */
+function drawQuad(){
+  const s=document.getElementById('quad');const W=720,H=500,m={l:54,r:20,t:22,b:46};
+  const d=DATA.quad;const xmin=80,xmax=680,ymin=33,ymax=88;
+  const X=v=>m.l+(v-xmin)/(xmax-xmin)*(W-m.l-m.r);
+  const Y=v=>H-m.b-(v-ymin)/(ymax-ymin)*(H-m.t-m.b);
+  const mg=X(DATA.medG),mp=Y(DATA.medP);
+  // quadrant tints
+  s.appendChild(el('rect',{x:m.l,y:m.t,width:mg-m.l,height:mp-m.t,fill:'var(--mint)',opacity:.05}));
+  s.appendChild(el('rect',{x:mg,y:m.t,width:W-m.r-mg,height:mp-m.t,fill:'var(--violet)',opacity:.06}));
+  s.appendChild(el('rect',{x:mg,y:mp,width:W-m.r-mg,height:H-m.b-mp,fill:'var(--coral)',opacity:.05}));
+  for(let v=40;v<=80;v+=10){const y=Y(v);s.appendChild(el('line',{x1:m.l,x2:W-m.r,y1:y,y2:y,stroke:'var(--line)'}));txt(s,m.l-8,y+4,v,{anchor:'end'});}
+  for(let v=100;v<=600;v+=100){txt(s,X(v),H-m.b+20,v,{anchor:'middle'});}
+  s.appendChild(el('line',{x1:mg,x2:mg,y1:m.t,y2:H-m.b,stroke:'var(--chalk-faint)','stroke-dasharray':'3 4'}));
+  s.appendChild(el('line',{x1:m.l,x2:W-m.r,y1:mp,y2:mp,stroke:'var(--chalk-faint)','stroke-dasharray':'3 4'}));
+  // labels of quadrants
+  txt(s,m.l+8,m.t+16,'JOYAS',{fill:'var(--mint)',w:700,size:11});
+  txt(s,W-m.r-8,m.t+16,'POTENCIAS',{fill:'var(--violet)',w:700,size:11,anchor:'end'});
+  txt(s,W-m.r-8,H-m.b-8,'GASTARON DE MÁS',{fill:'var(--coral)',w:700,size:11,anchor:'end'});
+  txt(s,m.l+8,H-m.b-8,'MODESTOS',{fill:'var(--chalk-faint)',w:700,size:11});
+  d.forEach(p=>{
+    const good=p.g<DATA.medG&&p.p>=DATA.medP, pot=p.g>=DATA.medG&&p.p>=DATA.medP, bad=p.g>=DATA.medG&&p.p<DATA.medP;
+    const col=good?'var(--mint)':pot?'var(--violet)':bad?'var(--coral)':'var(--chalk-faint)';
+    const c=el('circle',{cx:X(p.g),cy:Y(p.p),r:7,fill:col,stroke:'var(--ink)','stroke-width':1.5,cursor:'pointer'});
+    c.addEventListener('mousemove',e=>showTT(`<b>${p.c}</b><br><span class="v">gasto</span> ${p.g} M$<br><span class="v">puntos</span> ${p.p}`,e));c.addEventListener('mouseleave',hideTT);s.appendChild(c);
+    if(['Brighton','Chelsea','Man City','Arsenal','Brentford','Man United','Newcastle'].includes(p.c))
+      txt(s,X(p.g)+9,Y(p.p)+4,p.c,{fill:'var(--chalk-dim)',size:10});
+  });
+  txt(s,W/2,H-6,'Gasto total promedio · millones US$',{anchor:'middle',fill:'var(--chalk-faint)'});
+  const yl=txt(s,14,H/2,'Puntos prom.',{anchor:'middle',fill:'var(--chalk-faint)'});yl.setAttribute('transform',`rotate(-90 14 ${H/2})`);
+}
+
+/* -------- ACT V mini predictors -------- */
+function drawPred(id,data,color,xmax){
+  const s=document.getElementById(id);const W=340,H=280,m={l:38,r:14,t:14,b:34};
+  const X=v=>m.l+v/xmax*(W-m.l-m.r);
+  const Y=v=>H-m.b-(v-30)/(90-30)*(H-m.t-m.b);
+  for(let v=30;v<=90;v+=20){const y=Y(v);s.appendChild(el('line',{x1:m.l,x2:W-m.r,y1:y,y2:y,stroke:'var(--line)'}));txt(s,m.l-6,y+4,v,{anchor:'end',size:10});}
+  const n=data.length,sx=data.reduce((a,p)=>a+p[0],0),sy=data.reduce((a,p)=>a+p[1],0);
+  const sxy=data.reduce((a,p)=>a+p[0]*p[1],0),sxx=data.reduce((a,p)=>a+p[0]*p[0],0);
+  const b1=(n*sxy-sx*sy)/(n*sxx-sx*sx),b0=(sy-b1*sx)/n;
+  data.forEach(p=>{const yh=b0+b1*p[0];s.appendChild(el('line',{x1:X(p[0]),x2:X(p[0]),y1:Y(p[1]),y2:Y(yh),stroke:'var(--chalk-faint)','stroke-width':.8,'stroke-dasharray':'2 2',opacity:.5}));});
+  s.appendChild(el('line',{x1:X(0),y1:Y(b0),x2:X(xmax),y2:Y(b0+b1*xmax),stroke:'var(--chalk)','stroke-width':2}));
+  data.forEach(p=>s.appendChild(el('circle',{cx:X(p[0]),cy:Y(p[1]),r:4,fill:color,opacity:.9})));
+  txt(s,W/2,H-8,id==='predSal'?'Salarios · M$':'Fichajes · M$',{anchor:'middle',fill:'var(--chalk-faint)',size:10});
+}
+
+/* -------- ACT VI parabola -------- */
+function drawParab(){
+  const s=document.getElementById('parab');const W=720,H=430,m={l:48,r:18,t:18,b:42};
+  const d=DATA.panel;const xmin=60,xmax=960,ymin=15,ymax=95;
+  const X=v=>m.l+(v-xmin)/(xmax-xmin)*(W-m.l-m.r);
+  const Y=v=>H-m.b-(v-ymin)/(ymax-ymin)*(H-m.t-m.b);
+  for(let v=20;v<=90;v+=10){const y=Y(v);s.appendChild(el('line',{x1:m.l,x2:W-m.r,y1:y,y2:y,stroke:'var(--line)'}));txt(s,m.l-8,y+4,v,{anchor:'end'});}
+  for(let v=200;v<=900;v+=200){txt(s,X(v),H-m.b+20,v,{anchor:'middle'});}
+  // parabola
+  const a=-0.000124,b=0.13852,c=31.097;let path='';
+  for(let g=xmin;g<=xmax;g+=8){const p=a*g*g+b*g+c;path+=(g===xmin?'M':'L')+X(g)+' '+Y(p);}
+  s.appendChild(el('path',{d:path,fill:'none',stroke:'var(--amber)','stroke-width':2.5}));
+  // optimum
+  const gopt=560,popt=a*gopt*gopt+b*gopt+c;
+  s.appendChild(el('line',{x1:X(gopt),x2:X(gopt),y1:Y(popt),y2:H-m.b,stroke:'var(--mint)','stroke-dasharray':'4 4'}));
+  s.appendChild(el('circle',{cx:X(gopt),cy:Y(popt),r:7,fill:'var(--mint)',stroke:'var(--ink)','stroke-width':2}));
+  txt(s,X(gopt),Y(popt)-14,'óptimo ≈ 560 M$',{anchor:'middle',fill:'var(--mint)',size:12,w:700});
+  // points
+  d.forEach(p=>{
+    const cl=p[0]>700?'var(--coral)':'var(--violet)';
+    const c=el('circle',{cx:X(p[0]),cy:Y(p[1]),r:4.5,fill:cl,opacity:.7,cursor:'pointer'});
+    c.addEventListener('mousemove',e=>showTT(`<span class="v">gasto</span> ${p[0]} M$<br><span class="v">puntos</span> ${p[1]}`,e));c.addEventListener('mouseleave',hideTT);s.appendChild(c);
+  });
+  txt(s,X(820),Y(45),'zona Chelsea →',{fill:'var(--coral)',size:11,anchor:'end'});
+  txt(s,W/2,H-4,'Gasto total · millones US$',{anchor:'middle',fill:'var(--chalk-faint)'});
+}
+
+/* -------- ACT VII relegation -------- */
+function drawReleg(){
+  const s=document.getElementById('releg');const W=560,H=320,m={l:30,r:30,t:30,b:60};
+  const d=DATA.releg,max=320,bw=120,gap=140;
+  const Y=v=>H-m.b-(v/max)*(H-m.t-m.b);
+  for(let v=0;v<=300;v+=100){const y=Y(v);s.appendChild(el('line',{x1:m.l,x2:W-m.r,y1:y,y2:y,stroke:'var(--line)'}));txt(s,m.l-6,y+4,v,{anchor:'end'});}
+  d.forEach((p,i)=>{
+    const x=m.l+70+i*gap+i*30,y=Y(p.v),h=H-m.b-y;
+    s.appendChild(el('rect',{x,y,width:bw,height:h,rx:6,fill:p.col,opacity:.9}));
+    txt(s,x+bw/2,y-12,p.v+' M$',{anchor:'middle',fill:'var(--chalk)',size:16,w:700,f:'var(--disp)'});
+    txt(s,x+bw/2,H-m.b+22,p.l,{anchor:'middle',fill:'var(--chalk-dim)',size:12});
+    txt(s,x+bw/2,H-m.b+40,p.p+' pts prom.',{anchor:'middle',fill:'var(--chalk-faint)',size:11});
+  });
+}
+
+/* ---------- run + reveal ---------- */
+function build(){
+  drawScatter1();drawDual();drawBars();drawQuad();
+  drawPred('predSal',DATA.predSal,'var(--coral)',320);
+  drawPred('predFic',DATA.predFic,'var(--violet)',360);
+  drawParab();drawReleg();
+}
+build();
+
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(x=>io.observe(x));
+window.addEventListener('scroll',hideTT,{passive:true});
+</script>
+</body>
+</html>
